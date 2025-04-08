@@ -4,7 +4,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new TwoSumClass();
+        var Test = new AddTwoNumbersClass();
         Test.Run();
     }
 }
