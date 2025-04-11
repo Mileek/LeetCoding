@@ -4,7 +4,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new AddTwoNumbersClass();
+        var Test = new LengthOfLongestSubstringClass();
         Test.Run();
     }
 }
