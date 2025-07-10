@@ -5,7 +5,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new MergeSortedArrayClass();
+        var Test = new RemoveElementClass();
         Test.Run();
     }
 }
