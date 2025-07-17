@@ -5,7 +5,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new RemoveElementClass();
+        var Test = new RemoveDuplicatesClass();
         Test.Run();
     }
 }
