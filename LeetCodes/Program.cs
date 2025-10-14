@@ -6,7 +6,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new SelectionSort();
+        var Test = new InsertionSort();
         Test.Run();
     }
 }
