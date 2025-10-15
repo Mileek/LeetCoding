@@ -6,7 +6,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new RemoveDuplicatesIIClass();
+        var Test = new MajorityElementClass();
         Test.Run();
     }
 }
