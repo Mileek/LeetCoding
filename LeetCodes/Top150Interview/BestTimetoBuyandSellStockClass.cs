@@ -16,7 +16,7 @@ namespace LeetCodes.Top150Interview
 
             for (int i = 0; i < prices.Length; i++)
             {
-                if (prices[i] < buyPrice && i < prices.Length - 1)
+                if (prices[i] < buyPrice)
                 {
                     buyPrice = prices[i];
                     sellPrice = prices[i];
