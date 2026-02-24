@@ -6,7 +6,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new BestTimetoBuyandSellStockClass();
+        var Test = new BestTimetoBuyandSellStockIIClass();
         Test.Run();
     }
 }
