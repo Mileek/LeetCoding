@@ -4,6 +4,28 @@
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+
+# Debugging files
+*.pdb
+*.exe
+*.dll
+*.cache
+*.apphost.exe
+
+# Temporary files
+*.tmp
+*.log
+
 # User-specific files
 *.user
 *.suo
@@ -212,3 +234,4 @@ Thumbs.db
 /.vs/ProjectEvaluation/leetcode.metadata.v9.bin
 /.vs/ProjectEvaluation/leetcode.projects.v9.bin
 /.vs/ProjectEvaluation/leetcode.strings.v9.bin
+/.gitignore
