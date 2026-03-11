@@ -6,7 +6,7 @@ public class Program
 {
     private static async Task Main(string[] args)
     {
-        var Test = new AsyncLimitClass();
+        var Test = new CacheClass();
         await Test.Run();
     }
 }
