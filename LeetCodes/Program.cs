@@ -4,9 +4,9 @@ using LeetCodes.Top150Interview;
 
 public class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
-        var Test = new JumpGameClass();
-        Test.Run();
+        var Test = new AsyncLimitClass();
+        await Test.Run();
     }
 }
