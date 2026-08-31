@@ -7,7 +7,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new ValidAnagramClass();
+        var Test = new IntersectionofTwoArraysClass();
         Test.Run();
     }
 }
