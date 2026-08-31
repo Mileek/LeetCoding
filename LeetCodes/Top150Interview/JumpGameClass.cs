@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,8 @@ Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
         public bool CanJump(int[] nums)
         {
-            if (nums.Length == 1)
+            if (nums.Length == 1
+            || nums[0] == nums.Length)
             {
                 //Już jesteś na końcu
                 return true;
@@ -34,34 +36,135 @@ Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
                 return false;
             }
 
-            return CanJump(nums, 0, nums[0] + 1, false);
+            var canJump = CanJump(nums, nums[0], 0, false, 0).Item1;
+            return canJump;
         }
 
-        public bool CanJump(int[] nums, int startIndex, int length, bool canJump)
+        //Jeśli skacząc najdalej, z każdego pojedynczego miejsca, nie dojdędo końca, to false. Czyli muszę wykonać pętlę tylko nums[0] razy
+        public (bool, int) CanJump(int[] nums, int startIndex, int length, bool canJump, int furthest)
         {
-            for (int i = startIndex; i < length; i++)
+            for (int i = startIndex; i >= length; i--)
             {
-                if (canJump)
+                if (canJump 
+                    || furthest >= nums.Length)
                 {
-                    return canJump;
+                    return (canJump = true, furthest);
                 }
 
-                if (i == nums.Length - 1 /*|| i + length == nums.Length - 1*/)
+                if (i == nums.Length - 1
+                || length == nums.Length - 1
+                || furthest == nums.Length - 1
+                || furthest >= nums.Length)
                 {
-                    return canJump = true;
+                    return (canJump = true, furthest);
                 }
-                else if (nums[startIndex] == 0)
+                else if ((nums.Length <= i)
+                    || length == i
+                    || nums[i] == 0)
                 {
                     continue;
                 }
                 else
                 {
-                    int start = i + 1;
-                    canJump = CanJump(nums, start, nums[start], canJump);
+                    (canJump, furthest) = CanJump(nums, nums[i] + i, i, canJump, Math.Max(nums[i] + i, furthest));
+                }
+
+                if (!canJump
+                    && length != 0
+                    && length != 1
+                    && i - nums[i] != 7
+                    && furthest < nums.Length)
+                {
+                    return (canJump = false, furthest);
                 }
             }
-            return canJump;
+
+            return (canJump, furthest);
         }
+        //nums[i] - nums[i+1] == nums[i]
+        //|| (currentVal > 0 && currentVal - 1 < nums.Length -1 && nums[currentVal] == 0)
+        public void Run()
+        {
+            //int[] nums = [2, 3, 1, 1, 4]; //True
+            //int[] nums = [3, 2, 1, 0, 4]; // False
+            //int[] nums = [0, 1];
+            //int[] nums = [1, 2];
+            //int[] nums = [2, 0]; //true
+            //int[] nums = [2, 0, 0]; // true
+            //int[] nums = [1, 2, 3]; //True
+            //int[] nums = [1, 1, 1, 0]; //True
+            //int[] nums = [1, 0, 2]; //False
+            //int[] nums = [2, 5, 0, 0]; //True
+            //int[] nums = [3, 0, 8, 2, 0, 0, 1]; //True
+            //int[] nums = [3, 0, 0, 0]; //True
+            //int[] nums = [1, 1, 2, 2, 0, 1, 1]; //True
+            //int[] nums = [5, 9, 3, 2, 1, 0, 2, 3, 3, 1, 0, 0]; //True
+            int[] nums = [1, 2, 0, 1, 10, 0, 0, 1, 1000, 0, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3]; //True
+            Console.WriteLine(CanJump(nums));
+        }
+
+        //Git dla długich, ale np int[] nums = [3, 0, 8, 2, 0, 0, 1]; //True jest złe
+        //public (bool, bool) CanJump(int[] nums, int startIndex, int length, bool canJump, bool canReach)
+        //{
+        //    for (int i = startIndex; i <= length; i++)
+        //    {
+        //        if (canJump)
+        //        {
+        //            return (canJump, canReach);
+        //        }
+
+        //        if (i == nums.Length - 1
+        //            || nums[startIndex] == nums.Length - startIndex
+        //            || length == nums.Length - 1)
+        //        {
+        //            return (canJump = true, canReach = true);
+        //        }
+        //        else if (length == i)
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            int start = i + 1;
+        //            (canJump, canReach) = CanJump(nums, start, nums[start] + start, canJump, canReach);
+        //        }
+
+        //        if (!canJump && startIndex != 0 && (!canReach || nums[i] + length < nums.Length))
+        //        {
+        //            return (canJump = false, canReach = false);
+        //        }
+        //    }
+
+        //    return (canJump, canReach);
+        //}
+
+        //Raczej git ale wolne?
+        //public bool CanJump(int[] nums, int startIndex, int length, bool canJump)
+        //{
+        //    for (int i = startIndex; i <= length; i++)
+        //    {
+        //        if (canJump)
+        //        {
+        //            return canJump;
+        //        }
+
+        //        if (i == nums.Length - 1 || nums[startIndex] == nums.Length - startIndex)
+        //        {
+        //            return canJump = true;
+        //        }
+        //        else if (/*nums[i] == 0*/length == i)
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            int start = i + 1;
+        //            canJump = CanJump(nums, start, nums[start] + start, canJump);
+        //        }
+        //    }
+        //    return canJump;
+        //}
+
 
         //public bool CanJump(int[] nums, int step, ref bool reachedEnd, int startIndex = 0)
         //{
@@ -124,21 +227,6 @@ Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
         //    }
         //    return canJump;
         //}
-
-        public void Run()
-        {
-            int[] nums = [2, 3, 1, 1, 4]; //True
-            //int[] nums = [3, 2, 1, 0, 4]; // False
-            //int[] nums = [0, 1];
-            //int[] nums = [1, 2];
-            //int[] nums = [2, 0]; //true
-            //int[] nums = [2, 0, 0]; // true
-            //int[] nums = [1, 2, 3]; //True
-            //int[] nums = [1, 0, 2]; //False
-            //int[] nums = [2, 5, 0, 0]; //True
-            //int[] nums = [3, 0, 8, 2, 0, 0, 1]; //True
-            Console.WriteLine(CanJump(nums));
-        }
 
         //public bool CanJump(int[] nums)
         //{
