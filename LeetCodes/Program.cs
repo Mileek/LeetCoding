@@ -7,7 +7,7 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var Test = new IntersectionofTwoArraysClass();
+        var Test = new TopKFrequentElementsClass();
         Test.Run();
     }
 }
